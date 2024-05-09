@@ -68,7 +68,6 @@ class ClassController extends Controller
             return  response()->json(['message'=>'class Not Found'],200);
         }
         $class->enseignants()->detach();
-        
         $class->delete();
         return response()->json(['message'=>'class deleted'],200);
     }

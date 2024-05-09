@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\MatiereController;
 use App\Http\Controllers\ParentController;
@@ -111,12 +112,11 @@ Route::delete('/removehomework/{id}', [HomeworkController::class,'destroy']);
   });
   Route::middleware(['auth:parents', 'checkrole:parent'])->prefix('parent')->group(function () { 
     Route::get('/posts', [PostController::class, 'index']);
-
-
     Route::post('/addreclamation',[ReclamationController::class,'store']);
     Route::put('/updatereclamation/{id}',[ReclamationController::class,'update']);
     Route::delete('/removereclamation/{id}', [ReclamationController::class,'destroy']);
-    
-    
     Route::get('/reclamations/{id}',[ReclamationController::class, 'reclamation']);
+    Route::get('/enfants/{id}',[EnfantController::class, 'enfant']);
+    Route::get('/evenements',[EvenementController::class, 'index']);
 });
+Route::post('messages',[ChatController::class,'message']);

@@ -16,7 +16,17 @@ class EnfantController extends Controller
         return response()->json(["data" => $enfants], 200);
     }
 
-
+    public function enfant($parentid)
+    {
+        $enfant = Enfant::with('Classes') // Eager load the 'class' relationship
+                        ->whereHas('parents', function ($query) use ($parentid) {
+                            $query->where('parent_id', $parentid);
+                        })
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+    
+        return response()->json(["data" => $enfant], 200);
+    }
     public function show($id){
        
         $enfant= Enfant::find($id);
